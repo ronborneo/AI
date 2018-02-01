@@ -4,8 +4,8 @@ package com.company;
  * Created by ronborneo on 1/31/18.
  */
 public class Coordinate {
-  int x;
-  int y;
+  public int x;
+  public int y;
 
   public Coordinate(int x, int y) {
     this.x = x;

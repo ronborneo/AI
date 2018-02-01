@@ -11,8 +11,22 @@ public class Heuristic {
   private final Board boardState;
   private final int BOARD_LENGTH = 3;
 
-  public Heuristic(HashMap<Integer, Coordinate> correctTileLocations, Board boardState, int[][] goalState) {
-    this.correctTileLocations = correctTileLocations;
+  private HashMap<Integer, Coordinate> getCorrectTileLocations() {
+    HashMap<Integer, Coordinate> tileLocations = new HashMap<>();
+    tileLocations.put(0, new Coordinate(0, 0));
+    tileLocations.put(1, new Coordinate(0, 1));
+    tileLocations.put(2, new Coordinate(0, 2));
+    tileLocations.put(3, new Coordinate(1, 0));
+    tileLocations.put(4, new Coordinate(1, 1));
+    tileLocations.put(5, new Coordinate(1, 2));
+    tileLocations.put(6, new Coordinate(2, 0));
+    tileLocations.put(7, new Coordinate(2, 1));
+    tileLocations.put(8, new Coordinate(2, 2));
+    return tileLocations;
+  }
+
+  public Heuristic(Board boardState, int[][] goalState) {
+    this.correctTileLocations = getCorrectTileLocations();
     this.goalState = goalState;
     this.boardState = boardState;
   }
@@ -28,7 +42,7 @@ public class Heuristic {
     int misplacedTiles = 0;
     for (int i = 0; i < BOARD_LENGTH; i++)
       for (int j = 0; j < BOARD_LENGTH; j++)
-        if (boardState.board[i][j] != goalState[i][j] && !boardState.freeSpace.equals(new Coordinate(i, j)))
+        if (isMisplacedTile(new Coordinate(i, j)))
           misplacedTiles++;
     return misplacedTiles;
   }
@@ -38,7 +52,7 @@ public class Heuristic {
     for (int i = 0; i < BOARD_LENGTH; i++)
       for (int j = 0; j < BOARD_LENGTH; j++) {
         Coordinate currentCoordinate = new Coordinate(i, j);
-        if (!currentCoordinate.equals(boardState.freeSpace))
+        if (!isFreeSpace(currentCoordinate))
           manhattanDistanceSum += getManhattanDistance(currentCoordinate);
       }
     return manhattanDistanceSum;
@@ -48,6 +62,15 @@ public class Heuristic {
     int currentNum = boardState.board[location.x][location.y];
     Coordinate goalCoordinate = correctTileLocations.get(currentNum);
     return Math.abs(location.x - goalCoordinate.x) + Math.abs(location.y - goalCoordinate.y);
+  }
+
+  private boolean isMisplacedTile(Coordinate coordinate) {
+    return boardState.board[coordinate.x][coordinate.y] != goalState[coordinate.x][coordinate.y]
+            && !isFreeSpace(coordinate);
+  }
+
+  private boolean isFreeSpace(Coordinate coordinate) {
+    return coordinate.equals(boardState.freeSpace);
   }
 
 }

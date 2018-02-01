@@ -18,10 +18,6 @@ public class Shuffler {
           new Coordinate(0, -1)
   };
 
-  public Board getBoard() {
-    return board;
-  }
-
   public void shuffle() {
     int numberOfShuffles = getRandomShuffleNumber();
     System.out.println("number of shuffles: " + numberOfShuffles);
