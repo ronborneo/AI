@@ -10,21 +10,23 @@ public class Shuffler {
 
   public Shuffler() {
     freeSpace = new Coordinate(0, 0);
-    board = new int[][] {
-            { 0, 1, 2 },
-            { 3, 4, 5 },
-            { 6, 7, 8 }
+    board = new int[][]{
+            {0, 1, 2},
+            {3, 4, 5},
+            {6, 7, 8}
     };
   }
 
-  private final Coordinate[] COORDINATE_TRANSFORMATIONS = new Coordinate[] {
+  private final Coordinate[] COORDINATE_TRANSFORMATIONS = new Coordinate[]{
           new Coordinate(-1, 0),
           new Coordinate(1, 0),
           new Coordinate(0, 1),
           new Coordinate(0, -1)
   };
 
-  public int[][] getBoard() { return board; }
+  public int[][] getBoard() {
+    return board;
+  }
 
   public void shuffle() {
     int numberOfShuffles = getRandomShuffleNumber();
