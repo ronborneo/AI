@@ -5,16 +5,10 @@ import java.util.*;
 public class Shuffler {
   private final int MIN_SHUFFLE = 5;
   private final int MAX_SHUFFLE = 15;
-  private Coordinate freeSpace;
-  private int[][] board;
+  private Board board;
 
-  public Shuffler() {
-    freeSpace = new Coordinate(0, 0);
-    board = new int[][]{
-            {0, 1, 2},
-            {3, 4, 5},
-            {6, 7, 8}
-    };
+  public Shuffler(Board board) {
+    this.board = board;
   }
 
   private final Coordinate[] COORDINATE_TRANSFORMATIONS = new Coordinate[]{
@@ -24,7 +18,7 @@ public class Shuffler {
           new Coordinate(0, -1)
   };
 
-  public int[][] getBoard() {
+  public Board getBoard() {
     return board;
   }
 
@@ -46,8 +40,8 @@ public class Shuffler {
 
   private void handleSingleShuffle() {
     Coordinate randomCoordinate = getRandomCoordinatesToSwap();
-    swapCoordinateValues(freeSpace, randomCoordinate);
-    freeSpace.setCoordinatesTo(randomCoordinate);
+    swapCoordinateValues(board.freeSpace, randomCoordinate);
+    board.freeSpace.setCoordinatesTo(randomCoordinate);
     printBoard();
   }
 
@@ -55,13 +49,13 @@ public class Shuffler {
     ArrayList<Coordinate> possibleTransformations = getPossibleTransformations();
     int randomIndex = getRandomIndex(possibleTransformations.size());
     Coordinate transformation = possibleTransformations.get(randomIndex);
-    return new Coordinate(freeSpace.x + transformation.x, freeSpace.y + transformation.y);
+    return new Coordinate(board.freeSpace.x + transformation.x, board.freeSpace.y + transformation.y);
   }
 
   private void swapCoordinateValues(Coordinate c1, Coordinate c2) {
-    int temp = board[c1.x][c1.y];
-    board[c1.x][c1.y] = board[c2.x][c2.y];
-    board[c2.x][c2.y] = temp;
+    int temp = board.board[c1.x][c1.y];
+    board.board[c1.x][c1.y] = board.board[c2.x][c2.y];
+    board.board[c2.x][c2.y] = temp;
   }
 
   private ArrayList<Coordinate> getPossibleTransformations() {
@@ -72,8 +66,8 @@ public class Shuffler {
   }
 
   private boolean isValidTransformation(Coordinate transformation) {
-    return freeSpace.x + transformation.x >= 0 && freeSpace.x + transformation.x <= 2
-            && freeSpace.y + transformation.y >= 0 && freeSpace.y + transformation.y <= 2;
+    return board.freeSpace.x + transformation.x >= 0 && board.freeSpace.x + transformation.x <= 2
+            && board.freeSpace.y + transformation.y >= 0 && board.freeSpace.y + transformation.y <= 2;
   }
 
   private int getRandomIndex(int listSize) {
@@ -83,7 +77,7 @@ public class Shuffler {
 
   private void printBoard() {
     System.out.println("+board+");
-    Arrays.stream(board).forEach(row -> printRow(row));
+    Arrays.stream(board.board).forEach(row -> printRow(row));
     System.out.println("+-----+");
   }
 
