@@ -18,12 +18,6 @@ public class Node {
     this.parentNode = parentNode;
   }
 
-//  public Node(Node otherNode) {
-//    this.boardState = new Board(otherNode.boardState);
-//    this.pathCost = otherNode.pathCost;
-//    this.parentNode = otherNode;
-//  }
-
   public int compareTo(Node otherNode) {
     if (pathCost < otherNode.pathCost)
       return -1;

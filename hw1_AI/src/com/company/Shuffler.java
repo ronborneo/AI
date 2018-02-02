@@ -7,6 +7,7 @@ public class Shuffler {
   private final int MAX_SHUFFLES = 16;
   private final Board board;
   private final Transformations transformations;
+  public int shuffleLength = 0;
   public Shuffler(Board board) {
     this.board = board;
     this.transformations = new Transformations(board);
@@ -14,6 +15,7 @@ public class Shuffler {
 
   public void shuffle() {
     int numberOfShuffles = getRandomShuffleNumber();
+    shuffleLength = numberOfShuffles;
     System.out.println("number of shuffles: " + numberOfShuffles);
     board.printBoard();
     while (numberOfShuffles > 0) {

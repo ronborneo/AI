@@ -6,11 +6,18 @@ public class Main {
     Shuffler shuffler = new Shuffler(board);
     shuffler.shuffle();
 
+    System.out.println("shuffle done, attempting to solve...");
     Solver solver = new Solver(board);
     Node correctNode = solver.aStarSearch();
-    if (correctNode != null)
+
+    if (correctNode != null) {
+      System.out.println("** Goal state achieved **");
       correctNode.boardState.printBoard();
-    else
+    }  else {
       System.out.println("error: no solution.");
+    }
+
+    System.out.println("Solution length: " + solver.solutionLength
+            + "\nShuffle length: " + shuffler.shuffleLength);
   }
 }

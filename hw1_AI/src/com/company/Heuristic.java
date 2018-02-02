@@ -47,7 +47,7 @@ public class Heuristic {
   public int getHeuristicValue() {
     int misplacedTiles = getMisplacedTiles();
     int totalManhattanDistance = getTotalManhattanDistance();
-    System.out.println("misplaced: " + misplacedTiles + " manhattan: " + totalManhattanDistance);
+    /* System.out.println("misplaced: " + misplacedTiles + " manhattan: " + totalManhattanDistance); */
     return misplacedTiles + totalManhattanDistance;
   }
 
