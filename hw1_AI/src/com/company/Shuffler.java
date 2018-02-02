@@ -3,25 +3,19 @@ package com.company;
 import java.util.*;
 
 public class Shuffler {
-  private final int MIN_SHUFFLE = 5;
-  private final int MAX_SHUFFLE = 15;
-  private Board board;
-
+  private final int OFFSET = 5;
+  private final int MAX_SHUFFLES = 16;
+  private final Board board;
+  private final Transformations transformations;
   public Shuffler(Board board) {
     this.board = board;
+    this.transformations = new Transformations(board);
   }
-
-  private final Coordinate[] COORDINATE_TRANSFORMATIONS = new Coordinate[]{
-          new Coordinate(-1, 0),
-          new Coordinate(1, 0),
-          new Coordinate(0, 1),
-          new Coordinate(0, -1)
-  };
 
   public void shuffle() {
     int numberOfShuffles = getRandomShuffleNumber();
     System.out.println("number of shuffles: " + numberOfShuffles);
-    printBoard();
+    board.printBoard();
     while (numberOfShuffles > 0) {
       System.out.println("shuffle #" + numberOfShuffles);
       handleSingleShuffle();
@@ -29,20 +23,21 @@ public class Shuffler {
     }
   }
 
+  /* Number between 0..<MAX_SHUFFLES + OFFSET. In this case, 0..<16 + 5 => [5, 20] */
   private int getRandomShuffleNumber() {
     Random random = new Random();
-    return (random.nextInt(MAX_SHUFFLE)) + MIN_SHUFFLE;
+    return (random.nextInt(MAX_SHUFFLES)) + OFFSET;
   }
 
   private void handleSingleShuffle() {
     Coordinate randomCoordinate = getRandomCoordinatesToSwap();
     swapCoordinateValues(board.freeSpace, randomCoordinate);
     board.freeSpace.setCoordinatesTo(randomCoordinate);
-    printBoard();
+    board.printBoard();
   }
 
   private Coordinate getRandomCoordinatesToSwap() {
-    ArrayList<Coordinate> possibleTransformations = getPossibleTransformations();
+    ArrayList<Coordinate> possibleTransformations = transformations.getPossibleTransformations();
     int randomIndex = getRandomIndex(possibleTransformations.size());
     Coordinate transformation = possibleTransformations.get(randomIndex);
     return new Coordinate(board.freeSpace.x + transformation.x, board.freeSpace.y + transformation.y);
@@ -54,31 +49,8 @@ public class Shuffler {
     board.board[c2.x][c2.y] = temp;
   }
 
-  private ArrayList<Coordinate> getPossibleTransformations() {
-    ArrayList<Coordinate> coordinates = new ArrayList<>();
-    Arrays.stream(COORDINATE_TRANSFORMATIONS).filter(transformation -> isValidTransformation(transformation)).
-            forEach(item -> coordinates.add(item));
-    return coordinates;
-  }
-
-  private boolean isValidTransformation(Coordinate transformation) {
-    return board.freeSpace.x + transformation.x >= 0 && board.freeSpace.x + transformation.x <= 2
-            && board.freeSpace.y + transformation.y >= 0 && board.freeSpace.y + transformation.y <= 2;
-  }
-
   private int getRandomIndex(int listSize) {
     Random random = new Random();
     return random.nextInt(listSize);
-  }
-
-  private void printBoard() {
-    System.out.println("+board+");
-    Arrays.stream(board.board).forEach(row -> printRow(row));
-    System.out.println("+-----+");
-  }
-
-  private void printRow(int[] row) {
-    Arrays.stream(row).forEach(number -> System.out.print("|" + number));
-    System.out.println("|");
   }
 }

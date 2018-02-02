@@ -17,16 +17,20 @@ public class Solver {
     { 6, 7, 8 }
   };
 
+  /* TODO: Finish A* Search */
   private void aStarSearch() {
     Node node = new Node(board, 0);
     Comparator<Node> byPathCost = (Node node1, Node node2)-> node1.compareTo(node2);
     PriorityQueue<Node> frontier = new PriorityQueue<>(byPathCost);
     frontier.add(node);
     HashSet<Node> explored = new HashSet<>();
-    //while (!frontier.isEmpty()) {
-    //  Node currentNode = frontier.poll();
-      // if
-    //}
+//    while (!frontier.isEmpty()) {
+//      Node currentNode = frontier.poll();
+//      if (currentNode.isGoalState(goalState))
+//        return;
+//      explored.add(currentNode);
+//      for
+//    }
 
   }
 
