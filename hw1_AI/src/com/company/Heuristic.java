@@ -7,9 +7,14 @@ import java.util.*;
  */
 public class Heuristic {
   private final HashMap<Integer, Coordinate> correctTileLocations;
-  private final int[][] goalState;
-  private final Board boardState;
+  private Board boardState;
   private final int BOARD_LENGTH = 3;
+
+  private int[][] goalState = new int[][] {
+          { 0, 1, 2 },
+          { 3, 4, 5 },
+          { 6, 7, 8 }
+  };
 
   private HashMap<Integer, Coordinate> getCorrectTileLocations() {
     HashMap<Integer, Coordinate> tileLocations = new HashMap<>();
@@ -26,8 +31,16 @@ public class Heuristic {
   }
 
   public Heuristic(Board boardState, int[][] goalState) {
-    this.correctTileLocations = getCorrectTileLocations();
+    this(boardState);
     this.goalState = goalState;
+  }
+
+  public Heuristic(Board boardState) {
+    this.correctTileLocations = getCorrectTileLocations();
+    this.boardState = boardState;
+  }
+
+  public void setBoardState(Board boardState) {
     this.boardState = boardState;
   }
 

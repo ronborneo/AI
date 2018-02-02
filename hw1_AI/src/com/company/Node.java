@@ -6,10 +6,23 @@ package com.company;
 public class Node {
   public Board boardState;
   public int pathCost;
+  public Node parentNode = null;
+
   public Node(Board boardState, int pathCost) {
-    this.boardState = boardState;
+    this.boardState = new Board(boardState);
     this.pathCost = pathCost;
   }
+
+  public Node(Node parentNode, Board boardState, int pathCost) {
+    this(boardState, pathCost);
+    this.parentNode = parentNode;
+  }
+
+//  public Node(Node otherNode) {
+//    this.boardState = new Board(otherNode.boardState);
+//    this.pathCost = otherNode.pathCost;
+//    this.parentNode = otherNode;
+//  }
 
   public int compareTo(Node otherNode) {
     if (pathCost < otherNode.pathCost)
@@ -24,7 +37,7 @@ public class Node {
     for (int i = 0; i < boardState.board.length; i++)
       for (int j = 0; j < boardState.board.length; j++)
         if (boardState.board[i][j] != goalState[i][j])
-          return true;
-    return false;
+          return false;
+    return true;
   }
 }

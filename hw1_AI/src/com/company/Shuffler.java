@@ -31,7 +31,7 @@ public class Shuffler {
 
   private void handleSingleShuffle() {
     Coordinate randomCoordinate = getRandomCoordinatesToSwap();
-    swapCoordinateValues(board.freeSpace, randomCoordinate);
+    board.swapCoordinateValues(board.freeSpace, randomCoordinate);
     board.freeSpace.setCoordinatesTo(randomCoordinate);
     board.printBoard();
   }
@@ -41,12 +41,6 @@ public class Shuffler {
     int randomIndex = getRandomIndex(possibleTransformations.size());
     Coordinate transformation = possibleTransformations.get(randomIndex);
     return new Coordinate(board.freeSpace.x + transformation.x, board.freeSpace.y + transformation.y);
-  }
-
-  private void swapCoordinateValues(Coordinate c1, Coordinate c2) {
-    int temp = board.board[c1.x][c1.y];
-    board.board[c1.x][c1.y] = board.board[c2.x][c2.y];
-    board.board[c2.x][c2.y] = temp;
   }
 
   private int getRandomIndex(int listSize) {

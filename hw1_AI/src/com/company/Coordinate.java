@@ -12,6 +12,11 @@ public class Coordinate {
     this.y = y;
   }
 
+  public Coordinate(Coordinate otherCoordinate) {
+    this.x = otherCoordinate.x;
+    this.y = otherCoordinate.y;
+  }
+
   public String toString() {
     return "x: " + x + " y: " + y;
   }
@@ -28,4 +33,5 @@ public class Coordinate {
     Coordinate otherCoordinate = (Coordinate) obj;
     return y == otherCoordinate.y && x == otherCoordinate.x;
   }
+
 }
