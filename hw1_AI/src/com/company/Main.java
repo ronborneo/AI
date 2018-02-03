@@ -10,11 +10,13 @@ public class Main {
     Solver solver = new Solver(board);
     Node correctNode = solver.aStarSearch();
 
-    if (correctNode != null) {
-      System.out.println("** Goal state achieved **");
-      correctNode.boardState.printBoard();
-    }  else {
+    /* TODO:  Proper solution length
+       TODO:  only print correct path, not all of them. */
+
+    if (correctNode == null) {
       System.out.println("error: no solution.");
+    } else {
+      solver.printSequence(correctNode);
     }
 
     System.out.println("Solution length: " + solver.solutionLength
