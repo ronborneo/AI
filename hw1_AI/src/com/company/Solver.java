@@ -31,7 +31,6 @@ public class Solver {
 //    board.freeSpace.y = 1;
     Node node = new Node(board, 0);
     frontier.add(node);
-
     while (!frontier.isEmpty()) {
       Node currentNode = frontier.poll();
       if (currentNode.isGoalState(goalState))

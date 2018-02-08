@@ -44,7 +44,6 @@ public class Board {
     board[c2.x][c2.y] = temp;
   }
 
-  @Override
   public String toString() {
     StringBuilder stringToReturn = new StringBuilder();
     Arrays.stream(board).forEach(row -> toStringHelper(stringToReturn, row));

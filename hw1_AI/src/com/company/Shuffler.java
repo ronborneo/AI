@@ -19,7 +19,6 @@ public class Shuffler {
     System.out.println("number of shuffles: " + numberOfShuffles);
     board.printBoard();
     while (numberOfShuffles > 0) {
-      System.out.println("shuffle #" + numberOfShuffles);
       handleSingleShuffle();
       numberOfShuffles--;
     }

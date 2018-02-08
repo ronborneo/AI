@@ -30,11 +30,6 @@ public class Heuristic {
     return tileLocations;
   }
 
-  public Heuristic(Board boardState, int[][] goalState) {
-    this(boardState);
-    this.goalState = goalState;
-  }
-
   public Heuristic(Board boardState) {
     this.correctTileLocations = getCorrectTileLocations();
     this.boardState = boardState;
@@ -47,7 +42,6 @@ public class Heuristic {
   public int getHeuristicValue() {
     int misplacedTiles = getMisplacedTiles();
     int totalManhattanDistance = getTotalManhattanDistance();
-    /* System.out.println("misplaced: " + misplacedTiles + " manhattan: " + totalManhattanDistance); */
     return misplacedTiles + totalManhattanDistance;
   }
 
